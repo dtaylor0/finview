@@ -10,7 +10,7 @@ const db = await open({
   driver: sqlite3.Database,
 });
 
-app.use(express.static(path.join(__dirname, "../dist")));
+// app.use(express.static(path.join(__dirname, "../dist")));
 
 app.get("/api/getData", (req, res) => {
   const start = req.query.startRow;

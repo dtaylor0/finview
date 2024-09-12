@@ -6,7 +6,7 @@ import {
   ModuleRegistry,
   // GetRowIdFunc,
   GetRowIdParams,
-  // SortModelItem,
+  SortModelItem,
   ValueFormatterFunc,
   ValueFormatterParams,
 } from "@ag-grid-community/core";
@@ -44,6 +44,7 @@ const filterData = (filterModel: any, data: any[]) => {
   }
   return data;
 }; */
+const sortModel: SortModelItem[] = [{ colId: "High", sort: "asc" }];
 
 const dataSource: IDatasource = {
   rowCount: undefined,
@@ -53,9 +54,14 @@ const dataSource: IDatasource = {
       .then((res) => res.json())
       .then((data) => {
         console.log("Got " + data.length + " rows");
-        params.successCallback(data, -1);
+        const lastRow =
+          data.length < params.endRow - params.startRow
+            ? params.startRow + data.length
+            : -1;
+        params.successCallback(data, lastRow);
       });
   },
+  sortModel: sortModel,
 };
 
 // Main application is defined here.
@@ -74,7 +80,11 @@ function App() {
   const [colDefs, _setColDefs]: any[] = useState([
     { field: "Date", flex: 1 },
     { field: "Close/Last", valueFormatter: money, flex: 1 },
-    { field: "Volume", flex: 1 },
+    {
+      field: "Volume",
+      flex: 1,
+      valueFormatter: (p) => (p.value ? p.value.toLocaleString("en") : ""),
+    },
     { field: "Open", valueFormatter: money, flex: 1 },
     {
       field: "High",
@@ -98,7 +108,7 @@ function App() {
             rowModelType={"infinite"}
             datasource={dataSource}
             cacheBlockSize={50}
-            getRowId={(d: GetRowIdParams) => d.data.id}
+            getRowId={(d: GetRowIdParams) => String(d.data.id)}
           />
         </div>
       </div>
