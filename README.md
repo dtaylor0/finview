@@ -1,7 +1,7 @@
 # FinView - AG Grid + SQL Infinite Rows
 
 This is a simple test project to get AG Grid to render infinite rows with
-SQLite3 as a database.
+SQLite3 as a database. Adding server filtering/sorting next.
 
 ## Dependencies
 
@@ -29,3 +29,5 @@ npm run dev
 cd server
 node app.js
 ```
+
+Follow the vite dev link [http://localhost:5173]
