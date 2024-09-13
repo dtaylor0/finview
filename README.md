@@ -32,4 +32,4 @@ cd server
 node app.js
 ```
 
-Follow the vite dev link [http://localhost:5173]
+Follow the vite [dev link](http://localhost:5173)
