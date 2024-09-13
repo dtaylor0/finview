@@ -28,8 +28,7 @@ npm run dev
 
 ```bash
 # run in a second terminal/session
-cd server
-node app.js
+node server/app.js
 ```
 
 Follow the vite [dev link](http://localhost:5173)

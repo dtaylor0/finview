@@ -85,7 +85,7 @@ function App() {
         <h1>AAPL - Historical</h1>
       </div>
       <div className="card">
-        <div className="ag-theme-quartz" style={{ height: 500 }}>
+        <div className="ag-theme-quartz" style={{ height: 300 }}>
           <AgGridReact
             columnDefs={colDefs}
             rowModelType={"infinite"}
