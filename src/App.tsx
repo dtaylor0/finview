@@ -6,7 +6,7 @@ import {
   ModuleRegistry,
   // GetRowIdFunc,
   GetRowIdParams,
-  SortModelItem,
+  // SortModelItem,
   ValueFormatterFunc,
   ValueFormatterParams,
 } from "@ag-grid-community/core";
@@ -20,32 +20,11 @@ import "./App.css";
 // Any Module functionalities need to be registered here to work.
 ModuleRegistry.registerModules([InfiniteRowModelModule]);
 
-// Define sorting and filtering functions.
-/* const sortAndFilter = (
-  allOfTheData: any[],
-  sortModel: any,
-  filterModel: any,
-) => {
-  return sortData(sortModel, filterData(filterModel, allOfTheData));
-};
+// TODO: Define sorting and filtering functions.
 
-const sortData = (sortModel: any, data: any[]) => {
-  const sortPresent = sortModel && sortModel.length > 0;
-  if (!sortPresent) {
-    return data;
-  }
-  return data;
-};
+// const sortModel: SortModelItem[] = [{ colId: "High", sort: "asc" }];
 
-const filterData = (filterModel: any, data: any[]) => {
-  const filterPresent = filterModel && Object.keys(filterModel).length > 0;
-  if (!filterPresent) {
-    return data;
-  }
-  return data;
-}; */
-const sortModel: SortModelItem[] = [{ colId: "High", sort: "asc" }];
-
+// Build new data source which uses Express API to get incremental rows from sqlite db
 const dataSource: IDatasource = {
   rowCount: undefined,
   getRows: (params: IGetRowsParams) => {
@@ -61,12 +40,13 @@ const dataSource: IDatasource = {
         params.successCallback(data, lastRow);
       });
   },
-  sortModel: sortModel,
+  // sortModel: sortModel,
 };
 
 // Main application is defined here.
 function App() {
   const money: ValueFormatterFunc = (p: ValueFormatterParams) => {
+    // Format numbers as USD
     if (typeof p.value === "number") {
       return p.value.toLocaleString("en", {
         style: "currency",
@@ -77,6 +57,8 @@ function App() {
       return "";
     }
   };
+
+  // Define and configure table columns
   const [colDefs, _setColDefs]: any[] = useState([
     { field: "Date", flex: 1 },
     { field: "Close/Last", valueFormatter: money, flex: 1 },
@@ -90,12 +72,13 @@ function App() {
       field: "High",
       valueFormatter: money,
       flex: 1,
-      filter: "agNumberColumnFilter",
-      filterParams: { buttons: ["clear", "apply"] },
+      /* filter: "agNumberColumnFilter",
+      filterParams: { buttons: ["clear", "apply"] }, */
     },
     { field: "Low", valueFormatter: money, flex: 1 },
   ]);
 
+  // Build react page with ag grid
   return (
     <>
       <div>
@@ -112,6 +95,12 @@ function App() {
           />
         </div>
       </div>
+      <a
+        target="_blank"
+        href="https://www.nasdaq.com/market-activity/stocks/aapl/historical?page=1&rows_per_page=10&timeline=y10"
+      >
+        Source
+      </a>
     </>
   );
 }

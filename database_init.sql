@@ -1,3 +1,4 @@
+-- reference creation command
 CREATE TABLE aapl_hist(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	"Date" TEXT,
@@ -7,3 +8,4 @@ CREATE TABLE aapl_hist(
 	"High" REAL,
 	"Low" REAL
 );
+

@@ -5,13 +5,15 @@ import path from "path";
 
 const app = express();
 const port = 3000;
+const __dirname = import.meta.dirname;
+
+// Open database sqlite3 connection on server startup
 const db = await open({
-  filename: "../example.db",
+  filename: path.join(__dirname, "..", "example.db"),
   driver: sqlite3.Database,
 });
 
-// app.use(express.static(path.join(__dirname, "../dist")));
-
+// Provide API route to select startRow to endRow rows
 app.get("/api/getData", (req, res) => {
   const start = req.query.startRow;
   const end = req.query.endRow;
@@ -20,6 +22,7 @@ app.get("/api/getData", (req, res) => {
   );
 });
 
+// Listen on 3000
 app.listen(port, () => {
   console.log("Express listening on port " + port);
 });
