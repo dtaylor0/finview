@@ -12,23 +12,20 @@ Data source: [Nasdaq](https://www.nasdaq.com/market-activity/stocks/aapl/histori
 
 ## Run
 
-The example uses both the Vite dev server and an express node server. The
-static files are served from the Vite server, and the express server uses
-the sqlite3 package to query and return the specified rows. AG Grid uses this
-endpoint under the hood to incrementally fetch 50 rows on each scroll.
+The example uses the vite-express package to serve a react frontend with express
+backend using Express middleware in Vite. The express server serves the static
+files and uses the sqlite3 package in an API route to query and return the
+specified rows. AG Grid uses this endpoint under the hood to incrementally fetch
+a batch of rows on each scroll. The API endpoint also supports sorting the data
+column-wise in ascending or descending order, which allows the frontend to
+dynamically request chunked and sorted data. Filtering is not yet implemented.
 
 Data has been preloaded into the example.db sqlite file from the csv in the
 data directory.
 
 ```bash
-# run in one terminal/session
 npm install
 npm run dev
 ```
 
-```bash
-# run in a second terminal/session
-node server/app.js
-```
-
-Follow the vite [dev link](http://localhost:5173)
+Visit the local site on port 3000.
