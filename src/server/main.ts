@@ -21,7 +21,9 @@ interface QueryParamsGetRows {
   sortModel: string;
 }
 
-// Provide API route to select startRow to endRow rows
+// TODO: Add filtering functionality for each filter type.
+//
+// Provide API route to sort and filter data and to select startRow to endRow.
 app.get(
   "/api/getRows",
   (req: Request<never, never, never, QueryParamsGetRows>, res: Response) => {
@@ -40,7 +42,6 @@ app.get(
     }
 
     query += ` limit ${start}, ${end - start};`;
-    // `select * from aapl limit ${start}, ${end - start};`
     console.log(query);
     db.all(query)
       .then((data) => {
