@@ -22,14 +22,14 @@ ModuleRegistry.registerModules([InfiniteRowModelModule]);
 
 // TODO: Define sorting and filtering functions.
 
-// const sortModel: SortModelItem[] = [{ colId: "High", sort: "asc" }];
-
 // Build new data source which uses Express API to get incremental rows from sqlite db
 const dataSource: IDatasource = {
   rowCount: undefined,
   getRows: (params: IGetRowsParams) => {
     console.log("asking for " + params.startRow + " to " + params.endRow);
-    fetch(`/api/getData?startRow=${params.startRow}&endRow=${params.endRow}`)
+    fetch(
+      `/api/getRows?startRow=${params.startRow}&endRow=${params.endRow}&sortModel=${encodeURIComponent(JSON.stringify(params.sortModel))}`,
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log("Got " + data.length + " rows");
@@ -38,9 +38,12 @@ const dataSource: IDatasource = {
             ? params.startRow + data.length
             : -1;
         params.successCallback(data, lastRow);
+      })
+      .catch((e) => {
+        console.error(e);
+        params.failCallback();
       });
   },
-  // sortModel: sortModel,
 };
 
 // Main application is defined here.
