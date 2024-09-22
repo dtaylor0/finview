@@ -1,7 +1,8 @@
 # FinView - AG Grid + SQL Infinite Rows
 
 This is a simple test project to get AG Grid to render infinite rows with
-SQLite3 as a database. Adding server filtering/sorting next.
+SQLite3 as a database. Added server-side sorting, and will be adding
+server-side filtering next.
 
 Data source: [Nasdaq](https://www.nasdaq.com/market-activity/stocks/aapl/historical?page=1&rows_per_page=10&timeline=y10)
 
